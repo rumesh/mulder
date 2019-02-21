@@ -32,6 +32,7 @@ pipeline {
           dir('/home/jenkins/go/src/github.com/rumesh/mulder/charts/preview') {
             sh "make preview"
             sh "jx preview --app $APP_NAME --dir ../.."
+            sh "wget --server-response --output-document=/dev/null --timeout=60 --tries=10 --retry-connrefused http://mulder.$PREVIEW_NAMESPACE/"
           }
           dir('/home/jenkins/go/src/github.com/rumesh/mulder') {
             sh "make test-integration MULDER_ADDR=mulder.$PREVIEW_NAMESPACE"
