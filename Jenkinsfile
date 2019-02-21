@@ -33,6 +33,9 @@ pipeline {
             sh "make preview"
             sh "jx preview --app $APP_NAME --dir ../.."
           }
+          dir('/home/jenkins/go/src/github.com/rumesh/mulder') {
+            sh "make test-integration MULDER_ADDR=mulder.$PREVIEW_NAMESPACE"
+          }
         }
       }
     }
